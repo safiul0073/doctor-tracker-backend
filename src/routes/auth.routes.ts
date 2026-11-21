@@ -1,15 +1,10 @@
 import { Router } from "express";
-import * as rateLimitPkg from "express-rate-limit";
+import rateLimit from "express-rate-limit";
 import * as authController from "../controllers/auth.controller.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
 import { requireAuth } from "../middleware/auth.js";
 import { validate } from "../middleware/validate.js";
 import { loginSchema, registerSchema } from "../validators/auth.validator.js";
-
-const rateLimit =
-  typeof rateLimitPkg.default === "function"
-    ? rateLimitPkg.default
-    : (rateLimitPkg as unknown as typeof rateLimitPkg.default);
 
 const router = Router();
 
