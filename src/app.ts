@@ -2,12 +2,21 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
-import rateLimit from "express-rate-limit";
-import helmet from "helmet";
+import * as rateLimitPkg from "express-rate-limit";
+import * as helmetPkg from "helmet";
 import morgan from "morgan";
 import { env } from "./config/env.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 import apiRoutes from "./routes/index.js";
+
+const helmet =
+  typeof helmetPkg.default === "function"
+    ? helmetPkg.default
+    : (helmetPkg as unknown as typeof helmetPkg.default);
+const rateLimit =
+  typeof rateLimitPkg.default === "function"
+    ? rateLimitPkg.default
+    : (rateLimitPkg as unknown as typeof rateLimitPkg.default);
 
 export function createApp() {
   const app = express();
